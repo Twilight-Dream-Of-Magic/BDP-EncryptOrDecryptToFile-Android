@@ -1,0 +1,307 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="#FFC0CB"
+	tools:context="twilight_dream.tools.CrytoFile_Android.MainActivity"
+	>
+
+    <TextView
+		android:id="@+id/TextView0000"
+        android:text="@string/Title_content"
+		android:textSize="20sp"
+		android:textColor="#00FF00"
+		
+		android:shadowColor="#008B00"
+        android:shadowDx="10.0"
+        android:shadowDy="10.0"
+        android:shadowRadius="3.0"
+		
+		android:background="#000000"
+		android:gravity="top|center_horizontal"
+		
+        android:layout_width="750dp"
+        android:layout_height="30dp"
+		/>
+	
+	<ImageView
+		android:id="@+id/Image0000"
+		android:background="@mipmap/main_background"
+		
+		android:layout_below="@id/TextView0000"
+		
+		android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+		/>
+	
+	<!-- ExitText of file name and password -->
+	
+	
+	<EditText
+		android:id="@+id/EditText0000"
+		android:inputType="none"
+		android:background="#FFFF00"
+		android:singleLine="true"
+		android:hint="Please enter your source file name of full path!"
+		android:textColor="#A9A9A9"	
+		android:alpha="0.8"
+		
+		android:layout_marginLeft="0dp"
+		android:layout_marginRight="120dp"
+		android:layout_marginTop="30dp"
+		android:layout_marginBottom="0dp"
+		
+		android:layout_width="400dp"
+		android:layout_height="35dp"
+		
+		/>
+	
+	<EditText
+		android:id="@+id/EditPassword0000"
+		android:inputType="textPassword"
+		android:background="#9B30FF"
+		android:singleLine="true"
+		android:hint="Please enter your password 1!"
+		android:textColor="#F0FFFF"
+		android:minLines="4"
+		android:maxLines="256"
+		android:alpha="0.8"
+
+		android:layout_below="@id/EditText0000"
+		android:layout_marginLeft="0dp"
+		android:layout_marginRight="120dp"
+
+		android:layout_width="400dp"
+		android:layout_height="35dp"
+
+	/>
+
+	<EditText
+		android:id="@+id/EditPassword0001"
+		android:inputType="textPassword"
+		android:background="#90EE90"
+		android:singleLine="true"
+		android:hint="Please enter your password 2!"
+		android:textColor="#EE6363"
+		android:minLines="4"
+		android:maxLines="256"
+		android:alpha="0.8"
+
+		android:layout_below="@id/EditPassword0000"
+		android:layout_marginLeft="0dp"
+		android:layout_marginRight="120dp"
+
+		android:layout_width="400dp"
+		android:layout_height="35dp"
+
+	/>
+
+	<EditText
+		android:id="@+id/EditPassword0002"
+		android:inputType="textPassword"
+		android:background="#8B4513"
+		android:singleLine="true"
+		android:hint="Please enter your password 3!"
+		android:textColor="#7FFFD4"
+		android:minLines="4"
+		android:maxLines="256"
+		android:alpha="0.8"
+
+		android:layout_below="@id/EditPassword0001"
+		android:layout_marginLeft="0dp"
+		android:layout_marginRight="120dp"
+
+		android:layout_width="400dp"
+		android:layout_height="35dp"
+	/>
+
+	<EditText
+		android:id="@+id/EditPassword0003"
+		android:inputType="textPassword"
+		android:background="#FFA500"
+		android:singleLine="true"
+		android:hint="Please enter your password 4!"
+		android:textColor="#FFFACD"
+		android:minLines="4"
+		android:maxLines="256"
+		android:alpha="0.8"
+
+		android:layout_below="@id/EditPassword0002"
+		android:layout_marginLeft="0dp"
+		android:layout_marginRight="120dp"
+
+		android:layout_width="400dp"
+		android:layout_height="35dp"
+
+	/>
+
+	<EditText
+		android:id="@+id/EditText0001"
+		android:inputType="none"
+		android:background="#0000FF"
+		android:singleLine="true"
+		android:hint="Please enter your target file name of full path!"
+		android:textColor="#FFF0F5"
+		android:alpha="0.8"
+
+		android:layout_below="@id/EditPassword0003"
+		android:layout_marginLeft="0dp"
+		android:layout_marginRight="120dp"
+
+		android:layout_width="400dp"
+		android:layout_height="35dp"
+
+	/>
+
+	<!-- Clear text button -->
+
+	<Button
+        android:id="@+id/ClearButton0000"
+		android:layout_marginLeft="400dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="25dp"
+		android:layout_marginBottom="0dp"
+		
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Clear" />
+	
+	<Button
+        android:id="@+id/ClearButton0001"
+		android:layout_below="@id/ClearButton0000"
+		android:layout_marginLeft="400dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Clear" />
+	
+	<Button
+        android:id="@+id/ClearButton0002"
+		android:layout_below="@id/ClearButton0001"
+		android:layout_marginLeft="400dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Clear" />
+	
+	<Button
+        android:id="@+id/ClearButton0003"
+		android:layout_below="@id/ClearButton0002"
+		android:layout_marginLeft="400dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Clear" />
+	
+	<Button
+		android:id="@+id/ClearButton0004"
+		android:layout_below="@id/ClearButton0003"
+		android:layout_marginLeft="400dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Clear" />
+
+	<Button
+        android:id="@+id/ClearButton0005"
+		android:layout_below="@id/ClearButton0004"
+		android:layout_marginLeft="400dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Clear" />
+	
+	<!-- Select file button-->
+	
+	<Button
+        android:id="@+id/FileButton0000"
+		android:layout_marginLeft="485dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="25dp"
+		android:layout_marginBottom="0dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Select Source File" />
+	
+	<Button
+        android:id="@+id/FilePathButton0000"
+		android:layout_below="@id/FileButton0000"
+		android:layout_marginLeft="485dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Select Source Folder" />
+	
+	<Button
+        android:id="@+id/FilePathButton0001"
+		android:layout_marginLeft="485dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="165dp"
+		android:layout_marginBottom="0dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Select Target Folder" />
+	
+	<Button
+        android:id="@+id/FileButton0001"
+		android:layout_below="@id/FilePathButton0001"
+		android:layout_marginLeft="485dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Select Target File" />
+	
+	<!-- Encryption and Decryption function button -->
+	
+	<Button
+        android:id="@+id/EncryptButton"
+		android:layout_below="@id/FilePathButton0000"
+		android:layout_marginLeft="485dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Encrypt File Or Folder" />
+	
+	<Button
+        android:id="@+id/DecryptionButton"
+		android:layout_below="@id/EncryptButton"
+		android:layout_marginLeft="485dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Decrypt File Or Folder" />
+	
+	
+
+	
+	
+	</RelativeLayout>
