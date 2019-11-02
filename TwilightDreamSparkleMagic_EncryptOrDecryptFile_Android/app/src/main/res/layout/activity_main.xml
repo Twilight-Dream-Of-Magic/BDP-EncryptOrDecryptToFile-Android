@@ -24,6 +24,8 @@
         android:layout_height="30dp"
 		/>
 	
+	
+	
 	<ImageView
 		android:id="@+id/Image0000"
 		android:background="@mipmap/main_background"
@@ -32,7 +34,7 @@
 		
 		android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-		/>
+	/>
 	
 	<!-- ExitText of file name and password -->
 	
@@ -153,10 +155,21 @@
 
 	/>
 
+	<TextView
+        android:id="@+id/TV_Progress_Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+		android:layout_below="@id/EditText0001"
+		android:gravity="bottom|center_vertical"
+        android:text="Progress Status" 
+		android:textColor="#FFFFFF"
+	/>
+
 	<!-- Clear text button -->
 
 	<Button
-        android:id="@+id/ClearButton0000"
+        android:id="@+id/ClearTextButton0000"
 		android:layout_marginLeft="400dp"
 		android:layout_marginRight="0dp"
 		android:layout_marginTop="25dp"
@@ -167,8 +180,8 @@
         android:text="Clear" />
 	
 	<Button
-        android:id="@+id/ClearButton0001"
-		android:layout_below="@id/ClearButton0000"
+        android:id="@+id/ClearTextButton0001"
+		android:layout_below="@id/ClearTextButton0000"
 		android:layout_marginLeft="400dp"
 		android:layout_marginRight="0dp"
 		android:layout_marginTop="0dp"
@@ -179,8 +192,8 @@
         android:text="Clear" />
 	
 	<Button
-        android:id="@+id/ClearButton0002"
-		android:layout_below="@id/ClearButton0001"
+        android:id="@+id/ClearTextButton0002"
+		android:layout_below="@id/ClearTextButton0001"
 		android:layout_marginLeft="400dp"
 		android:layout_marginRight="0dp"
 		android:layout_marginTop="0dp"
@@ -191,8 +204,8 @@
         android:text="Clear" />
 	
 	<Button
-        android:id="@+id/ClearButton0003"
-		android:layout_below="@id/ClearButton0002"
+        android:id="@+id/ClearTextButton0003"
+		android:layout_below="@id/ClearTextButton0002"
 		android:layout_marginLeft="400dp"
 		android:layout_marginRight="0dp"
 		android:layout_marginTop="0dp"
@@ -203,8 +216,8 @@
         android:text="Clear" />
 	
 	<Button
-		android:id="@+id/ClearButton0004"
-		android:layout_below="@id/ClearButton0003"
+		android:id="@+id/ClearTextButton0004"
+		android:layout_below="@id/ClearTextButton0003"
 		android:layout_marginLeft="400dp"
 		android:layout_marginRight="0dp"
 		android:layout_marginTop="0dp"
@@ -215,8 +228,8 @@
         android:text="Clear" />
 
 	<Button
-        android:id="@+id/ClearButton0005"
-		android:layout_below="@id/ClearButton0004"
+        android:id="@+id/ClearTextButton0005"
+		android:layout_below="@id/ClearTextButton0004"
 		android:layout_marginLeft="400dp"
 		android:layout_marginRight="0dp"
 		android:layout_marginTop="0dp"
@@ -277,7 +290,7 @@
 	<!-- Encryption and Decryption function button -->
 	
 	<Button
-        android:id="@+id/EncryptButton"
+        android:id="@+id/EncryptionButton"
 		android:layout_below="@id/FilePathButton0000"
 		android:layout_marginLeft="485dp"
 		android:layout_marginRight="0dp"
@@ -286,11 +299,11 @@
 
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:text="Encrypt File Or Folder" />
+        android:text="To Encryption" />
 	
 	<Button
         android:id="@+id/DecryptionButton"
-		android:layout_below="@id/EncryptButton"
+		android:layout_below="@id/EncryptionButton"
 		android:layout_marginLeft="485dp"
 		android:layout_marginRight="0dp"
 		android:layout_marginTop="0dp"
@@ -298,10 +311,6 @@
 
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:text="Decrypt File Or Folder" />
-	
-	
-
-	
+        android:text="To Decryption" />
 	
 	</RelativeLayout>
