@@ -1,22 +1,11 @@
 package twilight_dream.tools.CrytoFile_Android;
 
 
-import android.util.*;
-
-import java.io.*;
-import java.nio.*;
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-
-import android.content.*;
+import android.os.*;
 import android.widget.*;
+import java.io.*;
+import java.nio.channels.*;
+import java.nio.file.*;
 
 public class FileCustomAlgorithmCipherUtil
 {
@@ -38,7 +27,7 @@ public class FileCustomAlgorithmCipherUtil
      */
     private static final int CIPHER_BUFFER_LENGTH = 32 * 1024;
 	
-	public static boolean runEncryptFile (File sourceFile, byte[] encryptKey, byte[] encryptKey2, byte[] encryptKey3, byte[] encryptKey4, File targetFile)
+	public static boolean runEncryptFile (String sourceFile, byte[] encryptKey, byte[] encryptKey2, byte[] encryptKey3, byte[] encryptKey4, String targetFile, CipherListener listener)
 	{
 		try
 		{
@@ -54,20 +43,56 @@ public class FileCustomAlgorithmCipherUtil
 			{
 				for(int start_module = 0, stop_module = 512 ; start_module <= stop_module ; start_module++)
 				{
+					/*
+					Path sourceFilePath = Paths.get(sourceFile.getText().toString());
+					Path targetFilePath = Paths.get(targetFile.getText().toString());
+					try
+					{
+						FileChannel targetFilePathChannel = FileChannel.open(targetFilePath);
+						FileChannel sourceFilePathChannel = FileChannel.open(sourceFilePath);
+
+						long currentSize = targetFilePathChannel.size();
+						long totalSize = sourceFilePathChannel.size();
+
+						for(;;)
+						{
+
+							Message msg = myHandler.obtainMessage();
+							msg.obj = "Decrypting progress：" + currentSize + "/" + totalSize + "(" + currentSize * 100 / totalSize + "%)";
+							myHandler.sendMessage(msg);
+
+							if (currentSize == totalSize)
+							{
+								targetFilePathChannel.close();
+								sourceFilePathChannel.close();
+								break;
+							}
+						}
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+					*/
+					
+					if (listener != null)
+					{
+                        listener.onProgress(targetFile.length(), sourceFile.length());
+                    }
+					
 					for(int start_group = 0, stop_group = 256 ; start_group <= stop_group ; start_group++)
 					{
-						byte[] temporaryBuffer = new byte[1024 * 16];
+						byte[] temporaryBuffer = Files.readAllBytes(Paths.get(sourceFile.toString()));
 
-						int sizeReadStatus = fis.read(temporaryBuffer), index = 0;
-						while( sizeReadStatus != -1 )
+						int readFileToGetBytesSize = fis.read(temporaryBuffer);
+						while( readFileToGetBytesSize != -1 )
 						{
-							for( int count = 0; count < sizeReadStatus; count++ )
+							for( int count = 0, index = 0; count < readFileToGetBytesSize; count++, index++ )
 							{
 								temporaryBuffer[count] ^= encryptKey[index % encryptKey.length];
-								index++;
 							}
-							fos.write(temporaryBuffer,0,sizeReadStatus);
-							sizeReadStatus = fis.read(temporaryBuffer);
+							fos.write(temporaryBuffer);
+							readFileToGetBytesSize = 0;
 						}
 						fos.flush();
 						fos.close();
@@ -75,18 +100,17 @@ public class FileCustomAlgorithmCipherUtil
 					}
 					for(int start_group = 0, stop_group = 256 ; start_group <= stop_group ; start_group++)
 					{
-						byte[] temporaryBuffer = new byte[1024 * 16];
-
-						int sizeReadStatus = fis.read(temporaryBuffer), index = 0;
-						while( sizeReadStatus != -1 )
+						byte[] temporaryBuffer = Files.readAllBytes(Paths.get(sourceFile.toString()));
+						
+						int readFileToGetBytesSize = fis.read(temporaryBuffer);
+						while( readFileToGetBytesSize != -1 )
 						{
-							for( int count = 0; count < sizeReadStatus; count++ )
+							for( int count = 0, index = 0; count < readFileToGetBytesSize; count++, index++ )
 							{
 								temporaryBuffer[count] ^= encryptKey2[index % encryptKey2.length];
-								index++;
 							}
-							fos.write(temporaryBuffer,0,sizeReadStatus);
-							sizeReadStatus = fis.read(temporaryBuffer);
+							fos.write(temporaryBuffer);
+							readFileToGetBytesSize = 0;
 						}
 						fos.flush();
 						fos.close();
@@ -94,18 +118,17 @@ public class FileCustomAlgorithmCipherUtil
 					}
 					for(int start_group = 0, stop_group = 256 ; start_group <= stop_group ; start_group++)
 					{
-						byte[] temporaryBuffer = new byte[1024 * 16];
+						byte[] temporaryBuffer = Files.readAllBytes(Paths.get(sourceFile.toString()));
 
-						int sizeReadStatus = fis.read(temporaryBuffer), index = 0;
-						while( sizeReadStatus != -1 )
+						int readFileToGetBytesSize = fis.read(temporaryBuffer);
+						while( readFileToGetBytesSize != -1 )
 						{
-							for( int count = 0; count < sizeReadStatus; count++ )
+							for( int count = 0, index = 0; count < readFileToGetBytesSize; count++, index++ )
 							{
 								temporaryBuffer[count] ^= encryptKey3[index % encryptKey3.length];
-								index++;
 							}
-							fos.write(temporaryBuffer,0,sizeReadStatus);
-							sizeReadStatus = fis.read(temporaryBuffer);
+							fos.write(temporaryBuffer);
+							readFileToGetBytesSize = 0;
 						}
 						fos.flush();
 						fos.close();
@@ -113,18 +136,17 @@ public class FileCustomAlgorithmCipherUtil
 					}
 					for(int start_group = 0, stop_group = 256 ; start_group <= stop_group ; start_group++)
 					{
-						byte[] temporaryBuffer = new byte[1024 * 16];
+						byte[] temporaryBuffer = Files.readAllBytes(Paths.get(sourceFile.toString()));
 
-						int sizeReadStatus = fis.read(temporaryBuffer), index = 0;
-						while( sizeReadStatus != -1 )
+						int readFileToGetBytesSize = fis.read(temporaryBuffer);
+						while( readFileToGetBytesSize != -1 )
 						{
-							for( int count = 0; count < sizeReadStatus; count++ )
+							for( int count = 0, index = 0; count < readFileToGetBytesSize; count++, index++ )
 							{
 								temporaryBuffer[count] ^= encryptKey4[index % encryptKey4.length];
-								index++;
 							}
-							fos.write(temporaryBuffer,0,sizeReadStatus);
-							sizeReadStatus = fis.read(temporaryBuffer);
+							fos.write(temporaryBuffer);
+							readFileToGetBytesSize = 0;
 						}
 						fos.flush();
 						fos.close();
@@ -132,7 +154,7 @@ public class FileCustomAlgorithmCipherUtil
 					}
 				}
 				//对加密后的文件重命名，增加.protectedFile-byTDOM后缀
-				File fileobject = targetFile;
+				File fileobject = new File(targetFile);
 				fileobject.renameTo(new File(fileobject.getPath() + CIPHER_TEXT_SUFFIX));
 				return true;
 			}
@@ -151,7 +173,7 @@ public class FileCustomAlgorithmCipherUtil
 		return false;
 	}
 
-	public static boolean runDecryptFile (File sourceFile, byte[] decryptKey, byte[] decryptKey2, byte[] decryptKey3, byte[] decryptKey4, File targetFile)
+	public static boolean runDecryptFile (String sourceFile, byte[] decryptKey, byte[] decryptKey2, byte[] decryptKey3, byte[] decryptKey4, String targetFile, CipherListener listener)
 	{
 		try
 		{
@@ -167,20 +189,56 @@ public class FileCustomAlgorithmCipherUtil
 			{
 				for(int start_module = 0, stop_module = 512 ; start_module <= stop_module ; start_module++)
 				{
+					/*
+					Path sourceFilePath = Paths.get(sourceFile.getText().toString());
+					Path targetFilePath = Paths.get(targetFile.getText().toString());
+					try
+					{
+						FileChannel targetFilePathChannel = FileChannel.open(targetFilePath);
+						FileChannel sourceFilePathChannel = FileChannel.open(sourceFilePath);
+
+						long currentSize = targetFilePathChannel.size();
+						long totalSize = sourceFilePathChannel.size();
+
+						for(;;)
+						{
+
+							Message msg = myHandler.obtainMessage();
+							msg.obj = "Decrypting progress：" + currentSize + "/" + totalSize + "(" + currentSize * 100 / totalSize + "%)";
+							myHandler.sendMessage(msg);
+
+							if (currentSize == totalSize)
+							{
+								targetFilePathChannel.close();
+								sourceFilePathChannel.close();
+								break;
+							}
+						}
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+					*/
+					
+					if (listener != null)
+					{
+                        listener.onProgress(targetFile.length(), sourceFile.length());
+                    }
+					
 					for(int start_group = 0, stop_group = 256 ; start_group <= stop_group ; start_group++)
 					{
-						byte[] temporaryBuffer = new byte[1024 * 16];
+						byte[] temporaryBuffer = Files.readAllBytes(Paths.get(sourceFile.toString()));
 
-						int sizeReadStatus = fis.read(temporaryBuffer), index = 0;
-						while( sizeReadStatus != -1 )
+						int readFileToGetBytesSize = fis.read(temporaryBuffer);
+						while( readFileToGetBytesSize != -1 )
 						{
-							for( int count = 0; count < sizeReadStatus; count++ )
+							for( int count = 0, index = 0; count < readFileToGetBytesSize; count++, index++)
 							{
 								temporaryBuffer[count] ^= decryptKey[index % decryptKey.length];
-								index++;
 							}
-							fos.write(temporaryBuffer,0,sizeReadStatus);
-							sizeReadStatus = fis.read(temporaryBuffer);
+							fos.write(temporaryBuffer);
+							readFileToGetBytesSize = 0;
 						}
 						fos.flush();
 						fos.close();
@@ -188,18 +246,17 @@ public class FileCustomAlgorithmCipherUtil
 					}
 					for(int start_group = 0, stop_group = 256 ; start_group <= stop_group ; start_group++)
 					{
-						byte[] temporaryBuffer = new byte[1024 * 16];
+						byte[] temporaryBuffer = Files.readAllBytes(Paths.get(sourceFile.toString()));
 
-						int sizeReadStatus = fis.read(temporaryBuffer), index = 0;
-						while( sizeReadStatus != -1 )
+						int readFileToGetBytesSize = fis.read(temporaryBuffer);
+						while( readFileToGetBytesSize != -1 )
 						{
-							for( int count = 0; count < sizeReadStatus; count++ )
+							for( int count = 0, index = 0; count < readFileToGetBytesSize; count++, index++)
 							{
 								temporaryBuffer[count] ^= decryptKey2[index % decryptKey2.length];
-								index++;
 							}
-							fos.write(temporaryBuffer,0,sizeReadStatus);
-							sizeReadStatus = fis.read(temporaryBuffer);
+							fos.write(temporaryBuffer);
+							readFileToGetBytesSize = 0;
 						}
 						fos.flush();
 						fos.close();
@@ -207,18 +264,17 @@ public class FileCustomAlgorithmCipherUtil
 					}
 					for(int start_group = 0, stop_group = 256 ; start_group <= stop_group ; start_group++)
 					{
-						byte[] temporaryBuffer = new byte[1024 * 16];
+						byte[] temporaryBuffer = Files.readAllBytes(Paths.get(sourceFile.toString()));
 
-						int sizeReadStatus = fis.read(temporaryBuffer), index = 0;
-						while( sizeReadStatus != -1 )
+						int readFileToGetBytesSize = fis.read(temporaryBuffer);
+						while( readFileToGetBytesSize != -1 )
 						{
-							for( int count = 0; count < sizeReadStatus; count++ )
+							for( int count = 0, index = 0; count < readFileToGetBytesSize; count++, index++)
 							{
 								temporaryBuffer[count] ^= decryptKey3[index % decryptKey3.length];
-								index++;
 							}
-							fos.write(temporaryBuffer,0,sizeReadStatus);
-							sizeReadStatus = fis.read(temporaryBuffer);
+							fos.write(temporaryBuffer);
+							readFileToGetBytesSize = 0;
 						}
 						fos.flush();
 						fos.close();
@@ -226,18 +282,17 @@ public class FileCustomAlgorithmCipherUtil
 					}
 					for(int start_group = 0, stop_group = 256 ; start_group <= stop_group ; start_group++)
 					{
-						byte[] temporaryBuffer = new byte[1024 * 16];
+						byte[] temporaryBuffer = Files.readAllBytes(Paths.get(sourceFile.toString()));
 
-						int sizeReadStatus = fis.read(temporaryBuffer), index = 0;
-						while( sizeReadStatus != -1 )
+						int readFileToGetBytesSize = fis.read(temporaryBuffer);
+						while( readFileToGetBytesSize != -1 )
 						{
-							for( int count = 0; count < sizeReadStatus; count++ )
+							for( int count = 0, index = 0; count < readFileToGetBytesSize; count++, index++)
 							{
 								temporaryBuffer[count] ^= decryptKey4[index % decryptKey4.length];
-								index++;
 							}
-							fos.write(temporaryBuffer,0,sizeReadStatus);
-							sizeReadStatus = fis.read(temporaryBuffer);
+							fos.write(temporaryBuffer);
+							readFileToGetBytesSize = 0;
 						}
 						fos.flush();
 						fos.close();
@@ -245,7 +300,7 @@ public class FileCustomAlgorithmCipherUtil
 					}
 				}
 				//对解密后的文件重命名，减去.protectedFile-byTDOM后缀//
-				File fileobject = targetFile;
+				File fileobject = new File(targetFile);
 				fileobject.renameTo(new File(fileobject.getPath().substring(fileobject.getPath().indexOf(CIPHER_TEXT_SUFFIX))));
 				return true;
 			}
@@ -437,8 +492,8 @@ public class FileCustomAlgorithmCipherUtil
 	
 	
     //用于加解密进度的监听器
-	//public interface CipherListener
-	//{
-    //    void onProgress(long current, long total);
-    //}
+	public interface CipherListener
+	{
+        void onProgress(long current, long total);
+    }
 }

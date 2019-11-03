@@ -83,11 +83,6 @@ public class MainActivity extends Activity implements OnClickListener
 	{
 		/* To Do: Implement this method */
 		
-		final String passwordTextString = passwordText.getText().toString();
-		final String passwordTextString2 = passwordText2.getText().toString();
-		final String passwordTextString3 = passwordText3.getText().toString();
-		final String passwordTextString4 = passwordText4.getText().toString();
-		
 		//Clear text context for button
 		EditText editText0 = findViewById(R.id.EditText0000);
 		EditText editText1 = findViewById(R.id.EditPassword0000);
@@ -201,70 +196,54 @@ public class MainActivity extends Activity implements OnClickListener
 						final boolean Success = true;
 						final boolean Fail = false;
 						
+						String passwordTextString = passwordText.getText().toString();
+						String passwordTextString2 = passwordText2.getText().toString();
+						String passwordTextString3 = passwordText3.getText().toString();
+						String passwordTextString4 = passwordText4.getText().toString();
+						
 						byte[] passwordTextBytes = passwordTextString.getBytes();
 						byte[] passwordTextBytes2 = passwordTextString2.getBytes();
 						byte[] passwordTextBytes3 = passwordTextString3.getBytes();
 						byte[] passwordTextBytes4 = passwordTextString4.getBytes();
 						
-						File sourceFileObjet = new File(sourceFile.getText().toString());
-						File targetFileObject = new File(targetFile.getText().toString());
+						//File sourceFileObject = new File(sourceFile.getText().toString());
+						//File targetFileObject = new File(targetFile.getText().toString());
 						
-						if (passwordText.length() == 0 || passwordText.length() == 0 || passwordText.length() == 0 || passwordText4.length() == 0)
+						if (passwordTextBytes.toString().length() == 0 || passwordTextBytes2.toString().length() == 0 || passwordTextBytes3.toString().length() == 0 || passwordTextBytes4.toString().length() == 0)
 						{
 							Toast.makeText(getApplicationContext(), "Oh no, You must be entered the four full password to application",Toast.LENGTH_LONG).show();
 							//IOException ioExcept = null;
 							//ioExcept.printStackTrace();
 						}
 						
-						boolean isResult =  FileCustomAlgorithmCipherUtil.runEncryptFile(sourceFileObjet, passwordTextBytes, passwordTextBytes2, passwordTextBytes3, passwordTextBytes4, targetFileObject);
+						boolean isResult =  FileCustomAlgorithmCipherUtil.runEncryptFile(sourceFile.getText().toString(), passwordTextBytes, passwordTextBytes2, passwordTextBytes3, passwordTextBytes4, targetFile.getText().toString(), new FileCustomAlgorithmCipherUtil.CipherListener()
 						{
-							Path sourceFilePath = Paths.get(sourceFile.getText().toString());
-							Path targetFilePath = Paths.get(targetFile.getText().toString());
-							try
+							@Override
+							public void onProgress(long current, long total)
 							{
-								FileChannel targetFilePathChannel = FileChannel.open(targetFilePath);
-								FileChannel sourceFilePathChannel = FileChannel.open(sourceFilePath);
-								
-								long currentSize = targetFilePathChannel.size();
-								long totalSize = sourceFilePathChannel.size();
-								
-								for(;;)
-								{
-
-									Message msg = myHandler.obtainMessage();
-									msg.obj = "Encrypting progress：" + currentSize + "/" + totalSize + "(" + currentSize * 100 / totalSize + "%)";
-									myHandler.sendMessage(msg);
-
-									if (currentSize == totalSize)
-									{
-										targetFilePathChannel.close();
-										sourceFilePathChannel.close();
-										break;
-									}
-								}
+								Message msg = myHandler.obtainMessage();
+								msg.obj = "Encrypting progress：" + current + "/" + total + "(" + current * 100 / total + "%)";
+								myHandler.sendMessage(msg);
 							}
-							catch (IOException e)
-							{
-								e.printStackTrace();
-							}
+							
+						});
+						Message msg = myHandler.obtainMessage();
+						if(isResult == Success)
+						{
+							msg.obj = "Encrypted File Successful!";
 						}
-                        Message msg = myHandler.obtainMessage();
-                        if(isResult == Success)
-						{
-                            msg.obj = "Encrypted File Successful!";
-                        }
 						else if (isResult == Fail)
 						{
-                            msg.obj = "Encrypted File Failed";
-                        }
-                        myHandler.sendMessage(msg);
-                    }
+							msg.obj = "Encrypted File Failed";
+						}
+						myHandler.sendMessage(msg);
+					}
 			}).start();
 		}
 		if(view_object.getId() == R.id.DecryptionButton)
 		{
 			new Thread(new Runnable()
-				{
+			{
                     @Override
                     public void run()
 					{
@@ -297,53 +276,37 @@ public class MainActivity extends Activity implements OnClickListener
 						final boolean Success = true;
 						final boolean Fail = false;
 						
+						String passwordTextString = passwordText.getText().toString();
+						String passwordTextString2 = passwordText2.getText().toString();
+						String passwordTextString3 = passwordText3.getText().toString();
+						String passwordTextString4 = passwordText4.getText().toString();
+						
 						byte[] passwordTextBytes = passwordTextString.getBytes();
 						byte[] passwordTextBytes2 = passwordTextString2.getBytes();
 						byte[] passwordTextBytes3 = passwordTextString3.getBytes();
 						byte[] passwordTextBytes4 = passwordTextString4.getBytes();
 						
-						File sourceFileObjet = new File(sourceFile.getText().toString());
-						File targetFileObject = new File(targetFile.getText().toString());
+						//File sourceFileObject = new File(sourceFile.getText().toString());
+						//File targetFileObject = new File(targetFile.getText().toString());
 
-						if (passwordText.length() == 0 || passwordText.length() == 0 || passwordText.length() == 0 || passwordText4.length() == 0)
+						if (passwordTextBytes.toString().length() == 0 || passwordTextBytes2.toString().length() == 0 || passwordTextBytes3.toString().length() == 0 || passwordTextBytes4.toString().length() == 0)
 						{
 							Toast.makeText(getApplicationContext(), "Oh no, You must be entered the four full password to application",Toast.LENGTH_LONG).show();
 							//IOException ioExcept = null;
 							//ioExcept.printStackTrace();
 						}
 
-                        boolean isResult =  FileCustomAlgorithmCipherUtil.runDecryptFile(sourceFileObjet, passwordTextBytes, passwordTextBytes2, passwordTextBytes3, passwordTextBytes4, targetFileObject);
+                        boolean isResult =  FileCustomAlgorithmCipherUtil.runDecryptFile(sourceFile.getText().toString(), passwordTextBytes, passwordTextBytes2, passwordTextBytes3, passwordTextBytes4, targetFile.getText().toString(), new FileCustomAlgorithmCipherUtil.CipherListener()
 						{
-							Path sourceFilePath = Paths.get(sourceFile.getText().toString());
-							Path targetFilePath = Paths.get(targetFile.getText().toString());
-							try
+							@Override
+							public void onProgress(long current, long total)
 							{
-								FileChannel targetFilePathChannel = FileChannel.open(targetFilePath);
-								FileChannel sourceFilePathChannel = FileChannel.open(sourceFilePath);
-
-								long currentSize = targetFilePathChannel.size();
-								long totalSize = sourceFilePathChannel.size();
-
-								for(;;)
-								{
-
-									Message msg = myHandler.obtainMessage();
-									msg.obj = "Decrypting progress：" + currentSize + "/" + totalSize + "(" + currentSize * 100 / totalSize + "%)";
-									myHandler.sendMessage(msg);
-
-									if (currentSize == totalSize)
-									{
-										targetFilePathChannel.close();
-										sourceFilePathChannel.close();
-										break;
-									}
-								}
+								Message msg = myHandler.obtainMessage();
+								msg.obj = "Decrypting progress：" + current + "/" + total + "(" + current * 100 / total + "%)";
+								myHandler.sendMessage(msg);
 							}
-							catch (IOException e)
-							{
-								e.printStackTrace();
-							}
-						}
+							
+						});
                         Message msg = myHandler.obtainMessage();
                         if(isResult == Success)
 						{
@@ -354,7 +317,7 @@ public class MainActivity extends Activity implements OnClickListener
                             msg.obj = "Decrypted File Failed";
                         }
                         myHandler.sendMessage(msg);
-                    }
+					}
 			}).start();
 		}
 	}
