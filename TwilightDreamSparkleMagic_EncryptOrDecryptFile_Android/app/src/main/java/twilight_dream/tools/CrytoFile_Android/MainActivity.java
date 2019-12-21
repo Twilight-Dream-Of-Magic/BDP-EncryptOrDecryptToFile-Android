@@ -6,6 +6,7 @@ import android.os.*;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.text.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
@@ -18,14 +19,14 @@ public class MainActivity extends Activity implements OnClickListener
 {
 	private EditText sourceFile; //Enter you source file path string in the Android OS EditText Object
 	private EditText targetFile; //Enter you target file path string in the Android OS EditText Object
-	
+
 	public EditText passwordText;
 	public EditText passwordText2;
 	public EditText passwordText3;
 	public EditText passwordText4;
-	
+
 	private TextView tvProgressStatus;
-	
+
 	private Handler myHandler = new Handler()
 	{
         @Override
@@ -41,25 +42,27 @@ public class MainActivity extends Activity implements OnClickListener
     {
 		// Create a new one android appcation window
         super.onCreate(savedInstanceState);
-		
+
 		//Load XML file content to configure R.java
         setContentView(R.layout.activity_main);
-		
+
 		setMyView();
 		setMyListener();
 	}
-	
-	protected void setMyView(){
-        sourceFile = (EditText) findViewById(R.id.EditText0000);
-        targetFile = (EditText) findViewById(R.id.EditText0001);
-		
-		passwordText = (EditText)  findViewById(R.id.EditPassword0000);
-		passwordText2 = (EditText)  findViewById(R.id.EditPassword0001);
-		passwordText3 = (EditText)  findViewById(R.id.EditPassword0002);
-		passwordText4 = (EditText)  findViewById(R.id.EditPassword0003);
-		
+
+	protected void setMyView()
+	{
+		sourceFile = findViewById(R.id.EditText0000);
+		targetFile = findViewById(R.id.EditText0001);
+
+		passwordText = findViewById(R.id.EditPassword0000);
+		passwordText2 = findViewById(R.id.EditPassword0001);
+		passwordText3 = findViewById(R.id.EditPassword0002);
+		passwordText4 = findViewById(R.id.EditPassword0003);
+
         //encryptionSourceButton = (Button) findViewById(R.id.EncryptionButton);
-        //decryptTargetButton = (Button) findViewById(R.id.DecryptionButton);
+        //decryptionTargetButton = (Button) findViewById(R.id.DecryptionButton);
+		
         tvProgressStatus = findViewById(R.id.TV_Progress_Status);
     }
 	
@@ -125,39 +128,43 @@ public class MainActivity extends Activity implements OnClickListener
 		//ShowFileChooser
 		if(view_object.getId() == R.id.FileButton0000)
 		{
+			//Set new intent class the action event for get file content
 			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-			intent.setType("*/*");      //all files
-			//intent.setType("text/xml");   //XML file only
-			intent.addCategory(Intent.CATEGORY_OPENABLE);
+			
+			intent.setType("*/*");      //Type access all files from new intent
+			//intent.setType("text/xml");   //Type access XML file only from new intent
+			intent.addCategory(Intent.CATEGORY_OPENABLE); //Can the file category be accessed ?
 
 			try
 			{
-				startActivityForResult(intent,0);
+				startActivityForResult(intent,0); //Call new activity for android inside intent message function the send request code to onActivityResult();
 				Toast.makeText(getApplicationContext(), "Opening file manger....... Select a file to encrypt", Toast.LENGTH_LONG).show();
 			} 
-			catch (android.content.ActivityNotFoundException exception) 
+			catch (android.content.ActivityNotFoundException exceptionActivity) 
 			{
 				// Potentially direct the user to the Market with a Dialog
-				Toast.makeText(getApplicationContext(), "Please install a file manager.", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Please you must be install a any file manager.", Toast.LENGTH_LONG).show();
 			}
 		}
 		//ShowFileChooser
 		if(view_object.getId() == R.id.FileButton0001)
 		{
+			//Set new intent class the action event for get file content
 			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-			intent.setType("*/*");      //all files
-			//intent.setType("text/xml");   //XML file only
-			intent.addCategory(Intent.CATEGORY_OPENABLE);
+			
+			intent.setType("*/*");      //Type access all files from new intent
+			//intent.setType("text/xml");   //Type access XML file only from new intent
+			intent.addCategory(Intent.CATEGORY_OPENABLE); //Can the file category be accessed ?
 
 			try
 			{
-				startActivityForResult(intent,0);
+				startActivityForResult(intent,0); // Call new activity for android inside intent message function the send request code to onActivityResult();
 				Toast.makeText(getApplicationContext(), "Opening file manger....... Select a file to decrypt", Toast.LENGTH_LONG).show();
 			} 
-			catch (android.content.ActivityNotFoundException exception) 
+			catch (android.content.ActivityNotFoundException exceptionActivity) 
 			{
 				// Potentially direct the user to the Market with a Dialog
-				Toast.makeText(getApplicationContext(), "Please install a file manager.", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Please you must be need install a any file manager.", Toast.LENGTH_LONG).show();
 			}
 		}
 		
@@ -201,6 +208,13 @@ public class MainActivity extends Activity implements OnClickListener
 						String passwordTextString3 = passwordText3.getText().toString();
 						String passwordTextString4 = passwordText4.getText().toString();
 						
+						if (passwordTextString.length() == 0 || passwordTextString2.length() == 0 || passwordTextString3.length() == 0 || passwordTextString4.length() == 0)
+						{
+							Toast.makeText(getApplicationContext(), "Oh no, You must be entered the four full password to application",Toast.LENGTH_LONG).show();
+							//IOException ioExcept = null;
+							//ioExcept.printStackTrace();
+						}
+
 						byte[] passwordTextBytes = passwordTextString.getBytes();
 						byte[] passwordTextBytes2 = passwordTextString2.getBytes();
 						byte[] passwordTextBytes3 = passwordTextString3.getBytes();
@@ -208,13 +222,6 @@ public class MainActivity extends Activity implements OnClickListener
 						
 						//File sourceFileObject = new File(sourceFile.getText().toString());
 						//File targetFileObject = new File(targetFile.getText().toString());
-						
-						if (passwordTextBytes.toString().length() == 0 || passwordTextBytes2.toString().length() == 0 || passwordTextBytes3.toString().length() == 0 || passwordTextBytes4.toString().length() == 0)
-						{
-							Toast.makeText(getApplicationContext(), "Oh no, You must be entered the four full password to application",Toast.LENGTH_LONG).show();
-							//IOException ioExcept = null;
-							//ioExcept.printStackTrace();
-						}
 						
 						boolean isResult =  FileCustomAlgorithmCipherUtil.runEncryptFile(sourceFile.getText().toString(), passwordTextBytes, passwordTextBytes2, passwordTextBytes3, passwordTextBytes4, targetFile.getText().toString(), new FileCustomAlgorithmCipherUtil.CipherListener()
 						{
@@ -281,6 +288,13 @@ public class MainActivity extends Activity implements OnClickListener
 						String passwordTextString3 = passwordText3.getText().toString();
 						String passwordTextString4 = passwordText4.getText().toString();
 						
+						if (passwordTextString.length() == 0 || passwordTextString2.length() == 0 || passwordTextString3.length() == 0 || passwordTextString4.length() == 0)
+						{
+							Toast.makeText(getApplicationContext(), "Oh no, You must be entered the four full password to application",Toast.LENGTH_LONG).show();
+							//IOException ioExcept = null;
+							//ioExcept.printStackTrace();
+						}
+
 						byte[] passwordTextBytes = passwordTextString.getBytes();
 						byte[] passwordTextBytes2 = passwordTextString2.getBytes();
 						byte[] passwordTextBytes3 = passwordTextString3.getBytes();
@@ -288,13 +302,6 @@ public class MainActivity extends Activity implements OnClickListener
 						
 						//File sourceFileObject = new File(sourceFile.getText().toString());
 						//File targetFileObject = new File(targetFile.getText().toString());
-
-						if (passwordTextBytes.toString().length() == 0 || passwordTextBytes2.toString().length() == 0 || passwordTextBytes3.toString().length() == 0 || passwordTextBytes4.toString().length() == 0)
-						{
-							Toast.makeText(getApplicationContext(), "Oh no, You must be entered the four full password to application",Toast.LENGTH_LONG).show();
-							//IOException ioExcept = null;
-							//ioExcept.printStackTrace();
-						}
 
                         boolean isResult =  FileCustomAlgorithmCipherUtil.runDecryptFile(sourceFile.getText().toString(), passwordTextBytes, passwordTextBytes2, passwordTextBytes3, passwordTextBytes4, targetFile.getText().toString(), new FileCustomAlgorithmCipherUtil.CipherListener()
 						{
@@ -322,7 +329,7 @@ public class MainActivity extends Activity implements OnClickListener
 		}
 	}
 	
-	
+	//Callback startActivityForResult(); the receive requestCode and resultCode of the function is passed to onActivityResult(); used as a parameter 
 	@Override
 	protected void onActivityResult(int requestCode,int resultCode,Intent fileData)
 	{
@@ -330,8 +337,8 @@ public class MainActivity extends Activity implements OnClickListener
 		
 		EditText editFilePathText0 = findViewById(R.id.EditText0000);
 		EditText editFilePathText1 = findViewById(R.id.EditText0001);
-		Button selectSourceFileButton = findViewById(R.id.FileButton0000);
-		Button selectTargetFileButton = findViewById(R.id.FileButton0001);
+		//Button selectSourceFileButton = findViewById(R.id.FileButton0000);
+		//Button selectTargetFileButton = findViewById(R.id.FileButton0001);
 		
 		switch(requestCode)
 		{
@@ -339,8 +346,6 @@ public class MainActivity extends Activity implements OnClickListener
 
 				if(resultCode == RESULT_OK)
 				{
-					String FilePathHolder = fileData.getData().getPath();
-					Toast.makeText(MainActivity.this, "You selected file is :" + " " + FilePathHolder , Toast.LENGTH_LONG).show();
 					/*
 					encryptionFileButton.setOnClickListener(new OnClickListener()
 					{
@@ -370,6 +375,9 @@ public class MainActivity extends Activity implements OnClickListener
 
 					});
 					*/
+					
+					String FilePathHolder = fileData.getData().getPath();
+					Toast.makeText(MainActivity.this, "You selected file is :" + " " + FilePathHolder , Toast.LENGTH_LONG).show();
 					
 					if(FilePathHolder.length() != 0 && editFilePathText0.length() > 0 && editFilePathText1.length() > 0)
 					{

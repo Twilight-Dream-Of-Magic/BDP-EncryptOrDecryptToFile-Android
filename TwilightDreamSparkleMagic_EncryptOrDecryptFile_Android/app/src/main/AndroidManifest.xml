@@ -10,7 +10,8 @@
 		android:resizeableActivity = "true">
         <activity
             android:name=".MainActivity"
-            android:label="@string/MainName" >
+            android:label="@string/MainName" 
+			android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

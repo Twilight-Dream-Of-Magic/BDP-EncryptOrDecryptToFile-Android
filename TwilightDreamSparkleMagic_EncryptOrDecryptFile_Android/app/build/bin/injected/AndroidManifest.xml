@@ -18,7 +18,8 @@
 
 		<activity
 			android:name=".MainActivity"
-			android:label="@string/MainName">
+			android:label="@string/MainName"
+			android:screenOrientation="landscape">
 
 			<intent-filter>
 

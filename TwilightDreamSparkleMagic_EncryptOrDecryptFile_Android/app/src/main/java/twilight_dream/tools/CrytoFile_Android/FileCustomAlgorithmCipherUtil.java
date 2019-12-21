@@ -58,7 +58,7 @@ public class FileCustomAlgorithmCipherUtil
 						{
 
 							Message msg = myHandler.obtainMessage();
-							msg.obj = "Decrypting progress：" + currentSize + "/" + totalSize + "(" + currentSize * 100 / totalSize + "%)";
+							msg.obj = "Encrypting progress：" + currentSize + "/" + totalSize + "(" + currentSize * 100 / totalSize + "%)";
 							myHandler.sendMessage(msg);
 
 							if (currentSize == totalSize)
