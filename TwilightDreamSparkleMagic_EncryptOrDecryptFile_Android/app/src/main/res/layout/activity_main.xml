@@ -3,7 +3,7 @@
 	android:layout_width="match_parent"
     android:layout_height="match_parent"
 	android:background="#FFC0CB"
-	tools:context="twilight_dream.tools.CrytoFile_Android.MainActivity"
+	tools:context="twilight_dream.tools.CryptoFile_Android.MainActivity"
 	>
 
     <TextView
